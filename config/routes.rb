@@ -6,6 +6,16 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  
+  scope module: :customer do
+    resource :customer, only:[:update, :edit] do
+      get "/customers/:id/unsubscribe" => "customers#unsubscribe", as: "unsubscribe"
+      patch "/customers/:id/withdrawal" => "customers#withdrawal", as: "withdrawal"
+    end
+  end
+  
+  
+  
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
